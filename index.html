@@ -10,7 +10,7 @@
 
 	<aside style="flex-grow:1;">
 		<nav id="nav"></nav>
-		<div  style="clear:both;">
+		<div style="clear:both;">
 			<input type="checkbox" id="switch_series" value="1" checked/>
 			Переключаться между сериалами после каждой серии
 		</div>
@@ -23,7 +23,7 @@
 	var views = localStorage.getItem('views');
 	var tv, episode;
 
-	function init(){
+	function init() {
 		tv = getQueryParam('tv') || 1;
 		episode = parseInt(getQueryParam('e')) || 1;
 
@@ -51,9 +51,12 @@
 		// 14: "катя и эф",
 		// 15: "Веселая карусель",
 		// 16: "Мишки Гамми",
-		// 18: "Новое Простоквашино",
+		7: "Простоквашино",
+		8: "Лео и тиг",
+		9: "Тима тома",
+		10: "Котики вперед",
+		11: "Джинглики",
 		// 19: "Четверо в кубе",
-
 
 
 		//	Даша-Следопыт
@@ -234,7 +237,7 @@
 		],
 
 		//Лунтик
-		6:[
+		6: [
 			'3Hz3kHRRISU',
 			'slt7raw1ZEM',
 			'XijaRayuc7k',
@@ -267,6 +270,99 @@
 			'kYuNMP17DXw',
 			'MFNHRiNtaMs',
 			'SoKt2vLCv5w'
+		],
+
+		7: [
+			'w8T_2oJ6OFQ',
+			'7Gb7ORxkQbw',
+			'wTLRSJH7Jj4',
+			'IHEttUa2qNc',
+			'31_HJ5fvfIQ',
+			'e0-TJaWffaU',
+			'nDOD4Psk7JE',
+			'PWYk7b0J6wk',
+			'thnw6QPKEOo',
+			'toU9TmAKgpg',
+			'Vzs6Ms0ta1U',
+			'LJ4QQ2vh7AE',
+			'pTQwx4sXf30',
+			'JVoxfiH51es',
+			'nZX4bdNDUr0',
+			'5Az_HCrD8yo',
+			'ZTIdRBFnyFc',
+			'lO-b4pOA0Yk',
+			'Pspcs8mJWZ0',
+			'52BslVSHVEQ',
+		],
+
+		8: [
+			'FeqXeTTPQrI',
+			'Mwb037hUouU',
+			'1wCWwFSgs7A',
+			'xj3gYewb_j0',
+			'xZrFszGTEZU',
+			'5Erab5fc2p0',
+			'ai6WXJlk_CY',
+			'qbO4psDygSA',
+			'0N0pd0n1YvQ',
+			'RfxgGjGNLLs',
+			'hMKmHJFp-mg',
+			'E64qsnb_7Do',
+			'Laf2lrPRBNs',
+			'GlUR1M5tVJY',
+			'iHmnXr_w6t8',
+			'Ikabhk-0KRM',
+			'96TdMyG6EPM',
+			'd338k3GVXfQ',
+			'jBh5EwljrXg',
+			'vT2XR_QuNoA',
+		],
+		9: [
+			'NdkzMGbhHw0',
+			'yXqMFOyd8xM',
+			'CzY2WKe4kW0',
+			'wC7oTaLSaSk',
+			'oXp9uwkTKB4',
+			'K2WBxmf1JlY',
+			'acrgyq2SsYk',
+			'aZwgMXF_jDw',
+			'2ge6SspJyK4',
+			'6MnAmU9rso8',
+		],
+
+		10: [
+			'jk5oF2fUcnY',
+			'IAWAGrRdCHk',
+			'KuZ7akIbn2Y',
+			'YgJMWxglx94',
+			'rVRyCUDCXXM',
+			'PPgX1VnifVM',
+			'AypmSRi5Khs',
+			'8QyS9f8zl2w',
+			'2ebqL3RaWoM',
+			'-DOP7k0irQo',
+			'N5rM0mdDGa8',
+			'5TiRtnzccBE',
+			'4CoEjEPwHnk',
+			'o2_fyvfAcxQ',
+			'JeVuG2RemI4',
+			'r1T9JT3CFm0',
+		],
+		11: [
+			'OAbMyko0rqM',
+			'R3iUO8IiBDQ',
+			'OvF-S3Ns_v4',
+			'G8asJLAkGho',
+			'VJ6BYRZJJyY',
+			'AYEVAKhdyok',
+			'mXOCEFtQrr0',
+			'bh5Y8YxrwJ4',
+			'9wMN0j5Sa-g',
+			'rem54TXc-Eg',
+			'u-XoZJFfuwo',
+			'fLUg3XfcRZM',
+			'MyIdjwIpfDU',
+			'Rq9foxlhfCg',
 		]
 	};
 
@@ -313,7 +409,7 @@
 
 	function openEpisode(tv, ep = 1) {
 		episode = ep;
-		player.loadVideoById(shows[tv][ep-1]);
+		player.loadVideoById(shows[tv][ep - 1]);
 		render();
 	}
 
@@ -365,7 +461,7 @@
 
 	function getNavHtml(series, tv, episode, seenEpisodes) {
 		var navHtml = '';
-		for (var ep = 1; ep < shows[tv].length+1; ep++) {
+		for (var ep = 1; ep < shows[tv].length + 1; ep++) {
 			var currentClass = ep == episode ? 'current' : '';
 			var seenClass = seenEpisodes.indexOf(ep) !== -1 ? 'seen' : '';
 			navHtml += `<a class="ep ${currentClass} ${seenClass}"
@@ -395,7 +491,7 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 		player = new YT.Player('player', {
 			height: '390',
 			width: '100%',
-			videoId: shows[tv][episode-1],
+			videoId: shows[tv][episode - 1],
 			events: {
 				'onReady': onPlayerReady,
 				'onStateChange': onPlayerStateChange
@@ -441,7 +537,7 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 		border-radius: 5px;
 		padding: 5px;
 		margin: 5px;
-		width:200px;
+		width: 200px;
 	}
 
 	.tv {
@@ -466,7 +562,7 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 		color: white;
 		background: #159b15;
 		float: left;
-		border:2px solid white;
+		border: 2px solid white;
 	}
 
 	#nav a.current {
