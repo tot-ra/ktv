@@ -5,17 +5,22 @@
 	<div id="player"></div>
 </article>
 
-<div style="display: flex;width:100%;">
+<div style="margin: 0 auto;width: 200px;">
+	<button type="button" id="mark_seen">✔ Видели</button>
+	<br />
+	<div style="clear:both;">
+		<input type="checkbox" id="switch_series" value="1" checked/>
+		Переключать сериал
+	</div>
+</div>
+
+<div style="display: flex;width:100%; flex-direction: column;">
+	<div id="filter">Возраст: <input type="number" id="age" min=0 max=18 /></div>
 	<menu id="menu"></menu>
 
-	<aside style="flex-grow:1;">
+	<aside>
 		<nav id="nav"></nav>
-		<div style="clear:both;">
-			<input type="checkbox" id="switch_series" value="1" checked/>
-			Переключаться между сериалами после каждой серии
-		</div>
 	</aside>
-	<button type="button" id="mark_seen">✔ Видели</button>
 </div>
 
 <script language="JavaScript">
@@ -162,7 +167,7 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 	// needs to be in global scope
 	function onYouTubeIframeAPIReady() {
 		player = new YT.Player('player', {
-			height: '390',
+			height: '470',
 			width: '100%',
 			videoId: seriesShows[tv].series[episode - 1],
 			events: {
@@ -208,12 +213,27 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 	}
 
 	#menu {
-		border: 2px solid #0068aa;
 		background: #fff8ac;
 		border-radius: 5px;
-		padding: 5px;
+		padding: 7px;
+		margin: 0;
+
+		display: flex;
+		flex-wrap: wrap;
+	}
+	#menu div{
+		flex: 1 1 160px; /* explanation below */
 		margin: 5px;
-		width: 200px;
+	}
+
+	#filter{
+		background: #ffe885;
+		padding: 7px;
+	}
+
+	#filter input{
+		padding: 3px;
+		font-size:15px;
 	}
 
 	.tv {
@@ -241,14 +261,16 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 		border: 2px solid white;
 	}
 
-	#nav a.current {
-		font-weight: bold;
-		border: 2px solid black;
-	}
-
 	#nav a.seen {
 		color: white;
 		background: #ef2525;
+	}
+
+	#nav a.current {
+		font-weight: bold;
+		border: 2px solid black;
+		background: yellow;
+		color:black;
 	}
 
 	button {
@@ -258,13 +280,15 @@ href="#tv=${tv}&e=${ep}">${ep}</a>`
 	}
 
 	aside {
-		padding: 30px;
-		clear: both;
+		padding: 10px 0;
+		flex:1;
 	}
 
 	#mark_seen {
 		background: #ef2525;
 		color: white;
+		height: 100px;
+		width: 180px;
 	}
 
 	#next {
